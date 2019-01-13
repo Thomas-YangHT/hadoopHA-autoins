@@ -1,0 +1,99 @@
+#!/usr/bin/bash
+#
+#FUNCTION for install.sh
+
+#zookeeper
+func_zookeeper(){
+	fab -H $node -f fab_inst.py zookeeper -u $REMOTE_USER -P --colorize-errors
+}
+
+#images prepare
+func_images_prepare(){
+	fab -H $master,$node -f fab_inst.py prepare_images -u $REMOTE_USER -P --colorize-errors
+}
+
+#config prepare
+func_config_prepare(){
+	fab -H $master,$node -f fab_inst.py prepare -u $REMOTE_USER -P --colorize-errors
+}
+
+#journalnode
+func_journalnode(){
+        fab -H $node -f fab_inst.py journalnode -u $REMOTE_USER -P --colorize-errors
+}
+
+#format zkfc&nodename
+func_format(){
+        fab -H $NN1_IP -f fab_inst.py format -u $REMOTE_USER --colorize-errors
+}
+
+#startnn1
+func_startnn1(){
+        fab -H $NN1_IP -f fab_inst.py startnn1 -u $REMOTE_USER --colorize-errors
+}
+
+#nn2 bootstrapstandby 
+func_standby(){
+        fab -H $NN2_IP -f fab_inst.py standby -u $REMOTE_USER --colorize-errors
+}
+
+#startnn2
+func_startnn2(){
+        fab -H $NN2_IP -f fab_inst.py startnn2 -u $REMOTE_USER --colorize-errors
+}
+
+#datanode
+func_datanode(){
+        fab -H $node -f fab_inst.py datanode -u $REMOTE_USER -P --colorize-errors
+}
+
+#nodemanager
+func_nodemanager(){
+        fab -H $NODES -f fab_inst.py nodemanager -u $REMOTE_USER -P --colorize-errors
+}
+
+#status
+func_status(){
+        fab -H $NN1_IP -f fab_inst.py status -u $REMOTE_USER --colorize-errors
+        fab -H $DN1_IP -f fab_inst.py zstatus -u $REMOTE_USER --colorize-errors
+}
+
+#Generate index svc-hadoop.html
+func_genindex(){
+        echo -e "<h1>Services index of Hadoop</h1> 
+<li><a href=\"HDFS web nn1\" >http://$NN1_IP:50070</a>\t<a href=\"HDFS web nn2\">https://$NN2_IP:50070</a></li></br>
+<li><a href=\"YARN web nn1\" >http://$NN1_IP:8088/cluster</a>\t<a href=\"YARN web nn2\">https://$NN2_IP:8088/cluster</a></li></br>"
+ > svc-hadoop.html  
+}
+
+#finish 
+func_finish(){
+  fab -H $NN1_IP -f fab_inst.py status -u $REMOTE_USER --colorize-errors |tee finish 
+  fab -H $DN1_IP -f fab_inst.py zstatus -u $REMOTE_USER --colorize-errors|tee -a finish
+  str="\n"`cat README.md |tail -6|head -n -1|sed 's/#/ /g'`"\n\n"
+  str+=`cat finish|awk -F'out:' '{print $2}'`
+  echo -e "\033[45;42m $str \033[0m"
+}
+
+#reboot
+func_reboot(){
+	fab -H $master,$node -f fab_inst.py reboot -u $REMOTE_USER -P --colorize-errors
+}
+
+#timezone8
+func_timezone8(){
+	fab -H $master,$node -f fab_inst.py timezone8 -u $REMOTE_USER  --colorize-errors
+}
+
+#route
+func_route(){
+	fab -H $master,$node -f fab_inst.py route -u $REMOTE_USER  --colorize-errors
+}
+
+#cmd
+func_cmd(){
+	fab -H $master,$node -f fab_inst.py cmd:"$cmdstr" -u $REMOTE_USER  --colorize-errors
+}
+
+
+#END.

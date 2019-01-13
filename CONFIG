@@ -1,0 +1,25 @@
+NN1_IP=192.168.253.44
+NN2_IP=192.168.253.45
+DN1_IP=192.168.253.46
+DN2_IP=192.168.253.47
+DN3_IP=192.168.253.48
+NN1_HOSTNAME=nn1.yunwei.edu
+NN2_HOSTNAME=nn2.yunwei.edu
+DN1_HOSTNAME=dn1.yunwei.edu
+DN2_HOSTNAME=dn2.yunwei.edu
+DN3_HOSTNAME=dn3.yunwei.edu
+
+REMOTE_USER=root
+master="$NN1_IP,$NN2_IP"
+node="$DN1_IP,$DN2_IP,$DN3_IP"  # add IP seprate by ','
+NODES="$master,$node"
+
+#just for Clone KVM machines
+OS_TYPE=centos                  #coreos or centos
+BASE_IMAGE_NAME=centosbase     #coreosbase2 or centosbase
+BASE_IP=192.168.253.11
+KVM_NAME="nn1,nn2,dn1,dn2,dn3"
+GATEWAY=192.168.253.125  
+DNS1=192.168.253.110
+DNS2=114.114.114.114  
+
