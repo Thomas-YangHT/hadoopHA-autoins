@@ -9,5 +9,5 @@ docker run  \
 -v $PWD/hadoop/yarn-site.xml:/etc/hadoop/yarn-site.xml \
 -v $PWD/hadoop/workers:/etc/hadoop/workers \
 -v $PWD/hadoop/entrypoint.sh-format:/entrypoint.sh \
--v $PWD/hadoop/data:/opt/data \
+-v $HADOOP_DATA_DIR:/opt/data \
  bde2020/hadoop-base:2.0.0-hadoop3.1.1-java8 

@@ -10,5 +10,11 @@ export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_INSTALL=$HADOOP_HOME
 
-/opt/hadoop-3.1.1/sbin/yarn-daemon.sh start resourcemanager
+$HADOOP_HOME/bin/yarn --daemon  stop   resourcemanager
+#$HADOOP_HOME/bin/yarn --daemon  stop   proxyserver 
+$HADOOP_HOME/bin/mapred --daemon  stop  historyserver 
+$HADOOP_HOME/bin/yarn --daemon  start  resourcemanager
+#$HADOOP_HOME/bin/yarn --daemon  start  proxyserver 
+$HADOOP_HOME/bin/mapred --daemon  start historyserver 
+
 tail -f /dev/stdout

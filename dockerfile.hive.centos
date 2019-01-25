@@ -1,0 +1,11 @@
+FROM centos:7.5.1804
+ADD jdk-8u181-linux-x64.tar.gz /opt
+ADD hadoop-3.1.1.tar.gz /opt
+ADD apache-hive-3.1.1-bin.tar.gz /opt
+RUN yum install -y which &&  mv /opt/apache-hive-3.1.1-bin /opt/apache-hive-3.1.1
+ADD mysql-connector-java-5.1.47.jar /opt/apache-hive-3.1.1/lib
+ENV JAVA_HOME /opt/jdk1.8.0_181
+ENV HADOOP_HOME /opt/hadoop-3.1.1
+ENV HADOOP_CONF_DIR /opt/hadoop-3.1.1/etc/hadoop
+ENV HIVE_HOME /opt/apache-hive-3.1.1
+ENV PATH $JAVA_HOME/bin:$PATH

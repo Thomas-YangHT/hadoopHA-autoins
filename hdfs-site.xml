@@ -149,4 +149,34 @@
         <value>60000</value>
     </property>
 
+#nfs
+<property> 
+  <name>dfs.namenode.accesstime.precision</name> 
+  <value>3600000</value> 
+  <description>The access time for HDFS file is precise upto this value. The default value is 1 hour. Setting a value of 0 disables access times for HDFS. </description> 
+</property>
+<property>
+    <name>nfs.dump.dir</name>
+    <value>/tmp/.hdfs-nfs</value>
+</property>
+<property>
+    <name>nfs.rtmax</name>
+    <value>1048576</value>
+    <description>This is the maximum size in bytes of a READ request supported by the NFS gateway. If you change this, make sure you also update the nfs mount's rsize(add rsize= # of bytes to the mount directive).</description>
+</property>
+<property>
+    <name>nfs.wtmax</name>
+    <value>65536</value>
+    <description>This is the maximum size in bytes of a WRITE request supported by the NFS gateway. If you change this, make sure you also update the nfs mount's wsize(add wsize= # of bytes to the mount directive).</description>
+</property>
+<property>
+    <name>nfs.exports.allowed.hosts</name>
+    <value>* rw</value>
+    <description>允许所有主机对文件有rw权限</description>
+</property>
+<property>
+  <name>nfs.export.point</name>
+  <value>/</value>
+</property>
+
 </configuration>

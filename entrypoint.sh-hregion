@@ -1,0 +1,9 @@
+#!/bin/bash
+#exec $@
+HBASE_PREFIX=/hbase
+HBASE_CONF=/hbase/conf
+JAVA_HOME=/usr
+
+$HBASE_PREFIX/bin/hbase regionserver stop
+$HBASE_PREFIX/bin/hbase regionserver start
+tail -f /dev/stdout

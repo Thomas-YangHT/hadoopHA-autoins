@@ -10,5 +10,6 @@ export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_INSTALL=$HADOOP_HOME
 
-/opt/hadoop-3.1.1/sbin/hadoop-daemon.sh start journalnode
+$HADOOP_HOME/bin/hdfs --daemon stop  journalnode
+$HADOOP_HOME/bin/hdfs --daemon start journalnode
 tail -f /dev/stdout

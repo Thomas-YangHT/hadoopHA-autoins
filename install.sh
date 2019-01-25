@@ -31,6 +31,10 @@ p|pconfig)
   echo "start prepare config..."
   func_config_prepare
 ;;
+reset)
+  echo "start reset..."
+  func_reset
+;;
 zookeeper)
   echo "start zookeeper..."
   func_zookeeper
@@ -63,9 +67,37 @@ nodemanager)
   echo "start nodemanager..."
   func_nodemanager
 ;;
-reset)
-  echo "reset"
-  func_reset
+hmaster)
+  echo "start hmaster..."
+  func_hmaster
+;;
+hregion)
+  echo "start hregion..."
+  func_hregion
+;;
+spark)
+  echo "start spark..."
+  func_spark
+;;
+sparkslave)
+  echo "start sparkslave..."
+  func_sparkslave
+;;
+hue)
+  echo "start hue..."
+  func_hue
+;;
+mysql)
+  echo "start mysql..."
+  func_mysql
+;;
+nginx)
+  echo "start nginx..."
+  func_nginx
+;;
+scope)
+  echo "start sparkslave..."
+  func_scope
 ;;
 finish)
   echo "services message:"
@@ -92,9 +124,27 @@ cmd)
   cmdstr=$2
   func_cmd
 ;;
+putfile)
+  echo "putfile:$2"
+  cmdstr=$2
+  func_putfile
+;;
+getfile)
+  echo "getfile:$2"
+  cmdstr=$2
+  func_getfile
+;;
 status)
   echo "cluster status:"
   func_status
+;;
+stop)
+  echo "cluster stop:"
+  func_stop
+;;
+start)
+  echo "cluster start:"
+  func_start
 ;;
 default|all)
   echo "start all install..."
@@ -104,12 +154,19 @@ default|all)
   func_journalnode
   func_format
   func_startnn1
-  func_standby
-  func_startnn2
   func_datanode
   func_nodemanager
+  func_standby
+  func_startnn2
   func_status
+  func_hmaster
+  func_hregion
+  func_spark
+  func_sparkslave
+  func_hue
   func_genindex
+  func_scope
+  func_nginx
   func_finish
 ;;
 help|*)

@@ -1,0 +1,12 @@
+#!/bin/bash
+#exec $@
+HBASE_CONF_DIR=/etc/hbase
+JAVA_HOME=/docker-java-home
+HBASE_VERSION=1.2.6
+HBASE_PREFIX=/opt/hbase-1.2.6
+JAVA_VERSION=8u162
+PATH=/opt/hbase-1.2.6/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+$HBASE_PREFIX/bin/hbase regionserver stop
+$HBASE_PREFIX/bin/hbase regionserver start
+tail -f /dev/stdout

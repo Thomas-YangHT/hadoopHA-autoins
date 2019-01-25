@@ -17,6 +17,11 @@ func_config_prepare(){
 	fab -H $master,$node -f fab_inst.py prepare -u $REMOTE_USER -P --colorize-errors
 }
 
+#reset
+func_reset(){
+	fab -H $master,$node -f fab_inst.py reset -u $REMOTE_USER -P --colorize-errors
+}
+
 #journalnode
 func_journalnode(){
         fab -H $node -f fab_inst.py journalnode -u $REMOTE_USER -P --colorize-errors
@@ -52,27 +57,103 @@ func_nodemanager(){
         fab -H $NODES -f fab_inst.py nodemanager -u $REMOTE_USER -P --colorize-errors
 }
 
+#hmaster
+func_hmaster(){
+        fab -H $NN1_IP -f fab_inst.py hmaster -u $REMOTE_USER -P --colorize-errors
+}
+
+#hregion
+func_hregion(){
+        fab -H $node -f fab_inst.py hregion -u $REMOTE_USER -P --colorize-errors
+}
+
+#spark
+func_spark(){
+        fab -H $NN2_IP -f fab_inst.py spark -u $REMOTE_USER -P --colorize-errors
+}
+
+#sparkslave
+func_sparkslave(){
+        fab -H $node -f fab_inst.py sparkslave -u $REMOTE_USER -P --colorize-errors
+}
+
+#hue
+func_hue(){
+        fab -H $NN2_IP -f fab_inst.py hue -u $REMOTE_USER -P --colorize-errors
+}
+
+#mysql
+func_mysql(){
+        fab -H $NN2_IP -f fab_inst.py mysql -u $REMOTE_USER -P --colorize-errors
+}
+
+#nginx
+func_nginx(){
+        fab -H $NN1_IP -f fab_inst.py nginx -u $REMOTE_USER -P --colorize-errors
+}
+
+#scope
+func_scope(){
+        fab -H $NODES -f fab_inst.py scope -u $REMOTE_USER -P --colorize-errors
+}
+
 #status
 func_status(){
-        fab -H $NN1_IP -f fab_inst.py status -u $REMOTE_USER --colorize-errors
-        fab -H $DN1_IP -f fab_inst.py zstatus -u $REMOTE_USER --colorize-errors
+        fab -H $NN1_IP -f fab_inst.py status  -u $REMOTE_USER --colorize-errors
+        fab -H $NN2_IP -f fab_inst.py status2 -u $REMOTE_USER --colorize-errors
+        fab -H $node   -f fab_inst.py zstatus -u $REMOTE_USER --colorize-errors
+        fab -H $NN2_IP -f fab_inst.py jupyterweb -u $REMOTE_USER --colorize-errors
 }
 
 #Generate index svc-hadoop.html
 func_genindex(){
-        echo -e "<h1>Services index of Hadoop</h1> 
-<li><a href=\"HDFS web nn1\" >http://$NN1_IP:50070</a>\t<a href=\"HDFS web nn2\">https://$NN2_IP:50070</a></li></br>
-<li><a href=\"YARN web nn1\" >http://$NN1_IP:8088/cluster</a>\t<a href=\"YARN web nn2\">https://$NN2_IP:8088/cluster</a></li></br>"
+        echo -e "<h1>Services index of Hadoop 3.1.1</h1> 
+<ul>
+<li><a href=\"http://$NN1_IP:50070\">HDFS web nn1:  http://$NN1_IP:50070</a></li></br>
+<li><a href=\"http://$NN2_IP:50070\">HDFS web nn2:  http://$NN2_IP:50070</a></li></br>
+<li><a href=\"http://$NN1_IP:8088/cluster\">YARN web nn1:  http://$NN1_IP:8088/cluster</a></li></br>
+<li><a href=\"http://$NN2_IP:8088/cluster\">YARN web nn2:  http://$NN2_IP:8088/cluster</a></li></br>
+<li><a href=\"http://$NN1_IP:16010\">HBASE-master web UI:  http://$NN1_IP:16010</a></li></br>
+<li><a href=\"http://$DN1_IP:16030\">HBASE region1:  http://$DN1_IP:16030</a></li></br>
+<li><a href=\"http://$NN2_IP:8080\">SPARK-master web UI:  http://$NN2_IP:8080</a></li></br>
+<li><a href=\"http://$DN1_IP:8081\">SPARK-slave1:  http://$DN1_IP:8081</a></li></br>
+<li><a href=\"http://$NN2_IP:8888\">HUE web:  http://$NN2_IP:8888</a></li></br>
+<li><a href=\"http://$NN2_IP:8889?token=`more finish |grep token|grep -Po "token=\K.*"|awk '{print $1}'`\">Jupyter-Notebook:  http://$NN2_IP:8889?token=`more finish |grep token|grep -Po "token=\K.*"|awk '{print $1}'`</a></li></br>
+<li><a href=\"http://$NN1_IP:4050\">Weavescope:  http://$NN1_IP:4050 default: admin/admin</a></li></br>
+<li>NFS3 Gateway1:  mount -t nfs -o vers=3,proto=tcp,nolock,noacl $NN1_IP:/ /mnt</li></br>
+<li>NFS3 Gateway2:  mount -t nfs -o vers=3,proto=tcp,nolock,noacl $NN2_IP:/ /mnt</li></br>
+</ul>" \
  > svc-hadoop.html  
 }
 
 #finish 
 func_finish(){
-  fab -H $NN1_IP -f fab_inst.py status -u $REMOTE_USER --colorize-errors |tee finish 
-  fab -H $DN1_IP -f fab_inst.py zstatus -u $REMOTE_USER --colorize-errors|tee -a finish
+  fab -H $NN1_IP -f fab_inst.py status     -u $REMOTE_USER --colorize-errors|tee finish 
+  fab -H $NN2_IP -f fab_inst.py status2    -u $REMOTE_USER --colorize-errors|tee -a finish
+  fab -H $node   -f fab_inst.py zstatus    -u $REMOTE_USER --colorize-errors|tee -a finish
+  fab -H $NN2_IP -f fab_inst.py jupyterweb -u $REMOTE_USER --colorize-errors|tee -a finish
   str="\n"`cat README.md |tail -6|head -n -1|sed 's/#/ /g'`"\n\n"
-  str+=`cat finish|awk -F'out:' '{print $2}'`
+  str+=`cat finish|awk -F'out:' '{print $2}'|grep -vP "WARNING|^$"`
+  str+="\n Please browse http://$NN1_IP/index.html to check hadoop services, enjoy it!"
   echo -e "\033[45;42m $str \033[0m"
+}
+
+#stop
+func_stop(){
+        fab -H $NODES  -f fab_inst.py stopnm -u $REMOTE_USER -P --colorize-errors
+        fab -H $master -f fab_inst.py stoprm -u $REMOTE_USER -P --colorize-errors
+        fab -H $node   -f fab_inst.py stopdn -u $REMOTE_USER -P --colorize-errors
+        fab -H $master -f fab_inst.py stopnn -u $REMOTE_USER -P --colorize-errors
+        fab -H $node   -f fab_inst.py stopjn -u $REMOTE_USER -P --colorize-errors
+}
+
+#start
+func_start(){
+        fab -H $node   -f fab_inst.py startjn -u $REMOTE_USER -P --colorize-errors
+        fab -H $master -f fab_inst.py startnn -u $REMOTE_USER -P --colorize-errors
+        fab -H $node   -f fab_inst.py startdn -u $REMOTE_USER -P --colorize-errors
+        fab -H $master -f fab_inst.py startrm -u $REMOTE_USER -P --colorize-errors
+        fab -H $NODES  -f fab_inst.py startnm -u $REMOTE_USER -P --colorize-errors
 }
 
 #reboot
@@ -82,17 +163,27 @@ func_reboot(){
 
 #timezone8
 func_timezone8(){
-	fab -H $master,$node -f fab_inst.py timezone8 -u $REMOTE_USER  --colorize-errors
+	fab -H $master,$node -f fab_inst.py timezone8 -u $REMOTE_USER -P --colorize-errors
 }
 
 #route
 func_route(){
-	fab -H $master,$node -f fab_inst.py route -u $REMOTE_USER  --colorize-errors
+	fab -H $master,$node -f fab_inst.py route -u $REMOTE_USER -P  --colorize-errors
 }
 
 #cmd
 func_cmd(){
-	fab -H $master,$node -f fab_inst.py cmd:"$cmdstr" -u $REMOTE_USER  --colorize-errors
+	fab -H $master,$node -f fab_inst.py cmd:"$cmdstr" -u $REMOTE_USER  -P --colorize-errors
+}
+
+#putfile
+func_putfile(){
+	fab -H $master,$node -f fab_inst.py putfile:"$cmdstr" -u $REMOTE_USER  -P --colorize-errors
+}
+
+#getfile
+func_getfile(){
+	fab -H $master,$node -f fab_inst.py getfile:"$cmdstr" -u $REMOTE_USER  -P --colorize-errors
 }
 
 

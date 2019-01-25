@@ -1,0 +1,8 @@
+#!/bin/bash
+php5-fpm
+nginx
+cd phphbaseadmin;python zookeeperadmin.py start
+echo "All done.open http://your_ip/phphbaseadmin from your web browser"
+
+exec $@
+tail -f /dev/stdout

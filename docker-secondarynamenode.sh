@@ -8,7 +8,7 @@ docker run --name namenode \
 -v $PWD/hadoop/yarn-site.xml:/etc/hadoop/yarn-site.xml \
 -v $PWD/hadoop/workers:/etc/hadoop/workers \
 -v $PWD/hadoop/entrypoint.sh-secondarynamenode:/entrypoint.sh \
--v $PWD/hadoop/data:/opt/data \
+-v $HADOOP_DATA_DIR:/opt/data \
 -v $PWD/hadoop/start-dfs.sh:/opt/hadoop-3.1.1/sbin/start-dfs.sh \
 -v $PWD/hadoop/stop-dfs.sh:/opt/hadoop-3.1.1/sbin/stop-dfs.sh \
 -v $PWD/hadoop/start-yarn.sh:/opt/hadoop-3.1.1/sbin/start-yarn.sh \

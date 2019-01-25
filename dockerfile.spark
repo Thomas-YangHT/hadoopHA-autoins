@@ -1,0 +1,24 @@
+FROM bde2020/hadoop-base:2.0.0-hadoop3.1.1-java8
+
+# Version
+ENV SPARK_VERSION=2.4.0
+ENV HIVE_VERSION=3.1.1
+ENV HADOOP_VERSION=3.1.1
+ENV SCALA_VERSINO=2.12.8
+
+# Set home
+#ENV SPARK_HOME=/spark-2.4.0-bin-without-hadoop-scala-2.12
+ENV SPARK_HOME=/spark-2.4.0
+ENV SCALA_HOME=/scala-2.12.8
+ENV HIVE_HOME=/apache-hive-3.1.1-bin
+ENV PATH=$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH:$SCALA_HOME/bin:$HIVE_HOME/bin:$HIVE_HOME/sbin
+
+#ADD spark-2.4.0-bin-without-hadoop-scala-2.12.tgz /
+ADD spark-2.4.0-sql.tgz /
+ADD apache-hive-3.1.1-bin.tar.gz /
+ADD scala-2.12.8.tgz /
+ADD sources.list /etc/apt
+ADD mysql-connector-java-5.1.47.jar /apache-hive-3.1.1-bin/lib
+RUN apt update; \
+    apt install -y python3 python3-pip; \
+    pip3 install  notebook

@@ -10,6 +10,12 @@ export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_INSTALL=$HADOOP_HOME
 
-/opt/hadoop-3.1.1/sbin/hadoop-daemon.sh start namenode
-/opt/hadoop-3.1.1/bin/hdfs --daemon start zkfc
+$HADOOP_HOME/bin/hdfs --daemon stop namenode
+$HADOOP_HOME/bin/hdfs --daemon stop zkfc
+$HADOOP_HOME/bin/hdfs --daemon stop portmap
+$HADOOP_HOME/bin/hdfs --daemon stop nfs3
+$HADOOP_HOME/bin/hdfs --daemon start namenode
+$HADOOP_HOME/bin/hdfs --daemon start zkfc
+$HADOOP_HOME/bin/hdfs --daemon start portmap
+$HADOOP_HOME/bin/hdfs --daemon start nfs3
 tail -f /dev/stdout

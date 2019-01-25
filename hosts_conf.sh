@@ -1,6 +1,6 @@
 source ./CONFIG
 cat <<EOF > hosts
-$NN1_IP nn1 $NN1_HOSTNAME
+$NN1_IP nn1 $NN1_HOSTNAME mycluster
 $NN2_IP nn2 $NN2_HOSTNAME
 $DN1_IP dn1 $DN1_HOSTNAME
 $DN2_IP dn2 $DN2_HOSTNAME

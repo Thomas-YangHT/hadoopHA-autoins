@@ -44,6 +44,13 @@
         <value>nn2</value>
     </property>
 
+    <!-- 指定web proxy的地址 
+    <property>
+        <name>yarn.web-proxy.address</name>
+        <value>nn1:7080</value>
+    </property>
+    -->
+
     <!-- 指定zk集群地址 -->
     <property>
         <name>yarn.resourcemanager.zk-address</name>

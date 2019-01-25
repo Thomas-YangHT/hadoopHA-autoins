@@ -1,0 +1,13 @@
+#!/bin/bash
+#exec $@
+HBASE_PREFIX=/hbase
+HBASE_CONF=/hbase/conf
+JAVA_HOME=/usr
+
+$HBASE_PREFIX/bin/hbase master stop
+$HBASE_PREFIX/bin/hbase master start & 
+$HBASE_PREFIX/bin/hbase rest   stop
+$HBASE_PREFIX/bin/hbase rest   start -p 8079 & #spark webUI 8080
+#$HBASE_PREFIX/sbin/hbase-daemon.sh start rest -p 8079  #log to file
+$HBASE_PREFIX/bin/hbase thrift &
+tail -f /dev/stdout
