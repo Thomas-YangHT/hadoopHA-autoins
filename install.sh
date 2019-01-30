@@ -197,7 +197,7 @@ default|all)
   func_finish
 ;;
 help|*)
-  echo "usage: $0 [p0|pimages|p|pconfig|zookeeper|journalnode|format|startnn1|standby|startnn2|datanode|nodemanager|status|finish|all|default|help|...   [-c|--config  /path/to/config/config.filename]"
+  echo "usage: $0 [p0|pimages|p|pconfig|zookeeper|journalnode|format|startnn1|standby|startnn2|datanode|nodemanager|status|finish|all|default|help|...]"
   echo -e "\
         p0|pimages     :cp&load all tgz&images to all nodes.\n\
         p|pconfig      :cp config&shell to all nodes.\n\
@@ -211,7 +211,7 @@ help|*)
         nodemanager    :start nodemanager on all nodes\n\
         hmaster        :HBASE master\n\
         hregion        :HBASE region\n\
-        spark          :start spark master\n\ 
+        spark          :start spark master\n\
         sparkslave     :start spark slaves\n\
         oozie          :oozie for schedule jobs\n\
         hue            :HUE manager page\n\
