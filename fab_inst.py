@@ -30,6 +30,7 @@ sed -i "s/MYHOST=\".*\"/MYHOST=\"$NN2_IP\"/g" myweb/portcheck.sh')
     put('config.tgz','')
     run('tar zxvf config.tgz -C hadoop')
     run('[ -f hosts.bak ] || cp /etc/hosts hosts.bak;cat hosts.bak hadoop/hosts >hosts.tmp;sudo cp hosts.tmp /etc/hosts')
+    run('[ -f .bashrc.bak ] || cp .bashrc .bashrc.bak;cat .bashrc.bak >.bashrc;echo \'export PS1="\[\e[36;40m\]\u@\h\[\e[33;40m\]\\t\[\e[0m\]\w#"\'>>.bashrc')
     run('source hadoop/CONFIG;mkdir -p $HADOOP_DATA_DIR/logs/hadoop;mkdir -p $HADOOP_DATA_DIR/hadoop/hdfs/{nn,dn,jn};ls')
 
 def prepare_mysql():
