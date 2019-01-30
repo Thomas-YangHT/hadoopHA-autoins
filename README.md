@@ -1,5 +1,5 @@
 # Auto Install Hadoop Cluster On Docker
-
+![](https://img.shields.io/badge/Dist-CentOS-blue.svg) ![](https://img.shields.io/badge/Dist-HDFS-red.svg) ![](https://img.shields.io/badge/Dist-YARN-green.svg) ![](https://img.shields.io/badge/Dist-Spark-yellow.svg) ![](https://img.shields.io/badge/Dist-HUE-blue.svg) ![](https://img.shields.io/badge/Dist-Jupyter-pink.svg) ![](https://img.shields.io/badge/Dist-Scope-green.svg)
 ## 前言：
 
 一个Hadoop自动安装脚本，以5台KVM虚拟机和docker为基础，来自动步署Hadoop集群（HDFS、YARN、HBASE、HIVE、SPARK、HUE、Jupyter-notebook、Scope等）
