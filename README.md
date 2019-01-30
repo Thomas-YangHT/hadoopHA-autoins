@@ -57,8 +57,8 @@ Myweb:  自编，服务索引与服务状态监控
 
 - 克隆5台虚拟机，详见前篇**[基础架构十四：来试试把Centos7改造成Coreos]**，nn2需要调整到8G内存
 - 下载所需docker镜相
-  - [hadoopHa——.rar]()  包含9个安装用到的docker image, 解压到下一步clone的目录里
-- 安装脚本工具  git clone  https://github.com/Thomas-YangHT/hadoopHA-autoins.git
+  - [HadoopHA_Images.part1.rar]()   [HadoopHA_Images.part2.rar]() 包含9个安装用到的docker image, 解压到下一步clone的目录里
+- 安装脚本工具  `git clone  https://github.com/Thomas-YangHT/hadoopHA-autoins.git`
 
 
 
