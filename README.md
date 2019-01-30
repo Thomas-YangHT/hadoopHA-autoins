@@ -49,7 +49,7 @@ Myweb:  自编，服务索引与服务状态监控
 | Myweb                   | Hue&Mysql&Jupyter            |             |             |             |
 | WeaveScope              | WeaveScope                   | WeaveScope  | WeaveScope  | WeaveScope  |
 
-![1548824942881](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548824942881.png)
+![](pics/2.png)
 
 
 
@@ -66,7 +66,7 @@ Myweb:  自编，服务索引与服务状态监控
 
 `cd hadoopHa-autoins; vim CONFIG` #修改5台机器的IP
 
-![1548825767739](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548825767739.png)
+![](pics/4.png)
 
 
 
@@ -76,60 +76,55 @@ Myweb:  自编，服务索引与服务状态监控
 
 [![asciicast](https://asciinema.org/a/5xpUiRhrALXiustmQcALlWQ06.svg)](https://asciinema.org/a/5xpUiRhrALXiustmQcALlWQ06)
 
-![1548826083534](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826083534.png)
-
+![](pics/3.png)
 
 
 ##### 验证
 
 打开安装完提示的链接：http://<your nn1 IP>
 
-![1548826330694](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826330694.png)
-
+![](pics/1.png)
 ##### 服务端口状态
 
-![1548826388581](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826388581.png)
-
+![](pics/2.png)
 
 
 ##### HDFS
 
-![1548826426636](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826426636.png)
-
+![](pics/5.png)
 
 
 YARN
 
-![1548826447366](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826447366.png)
+![](pics/6.png)
 
 HBASE
 
-![1548826471071](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826471071.png)
+![](pics/7.png)
 
 SPARK
 
-![1548826490838](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826490838.png)
+![](pics/8.png)
 
 HUE
 
-![1548826621220](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826621220.png)
+![](pics/10.png)
 
 Solr
 
-![1548826643309](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826643309.png)
+![](pics/9.png)
 
 Oozie
 
-![1548826658381](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826658381.png)
+![](pics/13.png)
 
 Jupyter-notebook
 
-![1548826686223](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826686223.png)
+![](pics/11.png)
 
 WeaveScope
 
-![1548826723570](C:\Users\qinghua\AppData\Roaming\Typora\typora-user-images\1548826723570.png)
-
+![](pics/12.png)
 
 
 ## [LinuxMan]：Linux 命令搜索与资料书籍
