@@ -4,9 +4,9 @@ import commands
 def test():
     get('coreos-k8s/master-conf.tgz','master-conf.tgz')
 
-def prepare_images():
+def prepare_images(IMG_NAME):
     run('mkdir hadoop;ls hadoop')
-    (status,images) = commands.getstatusoutput('cat IMAGES')
+    (status,images) = commands.getstatusoutput('cat ' + IMG_NAME + '|sed "s/ //g"')
     #print images
     for image in images.split('\n') :
         print image
@@ -20,13 +20,21 @@ def prepare_images():
 
 def prepare():
     local('sh hosts_conf.sh')
-    local('source ./CONFIG;sed  "s/NN1_IP/$NN1_IP/g" nginx_download.conf.template >nginx_download.conf')
+    #local('source ./CONFIG;sed  "s/NN1_IP/$NN1_IP/g" nginx_download.conf.template >nginx_download.conf')
+    local('source ./CONFIG; \
+sed -i "s/server_name.*localhost/server_name    $NN1_IP/g" myweb/nginx_download.conf  && \
+sed -i "s/MysqlHost=\\\".*\\\"/MysqlHost=\\\"$NN2_IP\\\"/g" myweb/qinconfig.inc.php && \
+sed -i "s/MYHOST=\".*\"/MYHOST=\"$NN2_IP\"/g" myweb/portcheck.sh')
     local('cat CONFIG_FILES|grep -vP "^#|^$" |xargs tar zcvf config.tgz')
     #local('tar zcvf config.tgz docker*sh CONFIG *site.xml* workers hosts entrypoint.sh* st*.sh regionservers backup-masters slaves spark-env.sh spark-defaults.conf nginx_download.conf')
     put('config.tgz','')
     run('tar zxvf config.tgz -C hadoop')
     run('[ -f hosts.bak ] || cp /etc/hosts hosts.bak;cat hosts.bak hadoop/hosts >hosts.tmp;sudo cp hosts.tmp /etc/hosts')
     run('source hadoop/CONFIG;mkdir -p $HADOOP_DATA_DIR/logs/hadoop;mkdir -p $HADOOP_DATA_DIR/hadoop/hdfs/{nn,dn,jn};ls')
+
+def prepare_mysql():
+    put('mysql.tgz','')
+    run('tar zxvf mysql.tgz -C hadoop')
 
 def reset():
     run('docker ps -q|xargs docker rm -f ')
@@ -89,8 +97,29 @@ def hue():
     run('sh hadoop/docker-hue.sh')
 
 def mysql():
-    run('docker rm mysql -f;docker ps')
+    run('docker rm mariadb -f;docker ps')
     run('sh hadoop/docker-mysql.sh')
+
+def hive():
+    run('docker rm hive -f;docker ps')
+    run('sh hadoop/docker-hive.sh')
+
+def hiveinit():
+    run('docker exec spark hadoop dfs -mkdir -p /user/hive/warehouse')
+    run('docker exec spark hadoop dfs -chmod g+w /user/hive/warehouse')
+    run('docker exec spark schematool -dbType mysql -initSchema')
+
+def oozie():
+    run('docker rm oozie -f;docker ps')
+    run('sh hadoop/docker-oozie.sh')
+
+def oozieinit():
+    run('sh hadoop/oozie-init.sh')
+
+def myweb():
+    put('svc-hadoop.html','hadoop/svc-hadoop.html')
+    run('docker rm myweb -f;docker ps')
+    run('sh hadoop/docker-myweb.sh')
 
 def nginx():
     put('svc-hadoop.html','hadoop/svc-hadoop.html')

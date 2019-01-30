@@ -13,5 +13,11 @@ SPARK_HOME=/spark-2.4.0
 
 $SPARK_HOME/sbin/stop-master.sh
 $SPARK_HOME/sbin/start-master.sh
+mkdir /tmp/spark-events
+$SPARK_HOME/sbin/start-history-server.sh
+mkdir /livy-0.5.0/logs
+/livy-0.5.0/bin/livy-server &
+/solr-7.6.0/bin/solr stop
+/solr-7.6.0/bin/solr start -c  -h nn2 -z dn1:2181,dn2:2181,dn3:2181 -force
 jupyter-notebook --ip=0.0.0.0 --port 8889 --allow-root 
 tail -f /dev/stdout

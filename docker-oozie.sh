@@ -1,9 +1,10 @@
 source ./hadoop/CONFIG
 SPARK_HOME=/spark-2.4.0
 
-docker run --name spark \
+docker run --name oozie \
 --restart always \
 --net host \
+--entrypoint /entrypoint.sh \
 -v $PWD/hadoop/spark-env.sh:$SPARK_HOME/conf/spark-env.sh \
 -v $PWD/hadoop/spark-defaults.conf:$SPARK_HOME/conf/spark-defaults.conf \
 -v $PWD/hadoop/slaves:$SPARK_HOME/conf/slaves \
@@ -14,6 +15,6 @@ docker run --name spark \
 -v $PWD/hadoop/workers:/etc/hadoop/workers \
 -v $PWD/hadoop/hive-site.xml:/apache-hive-3.1.1-bin/conf/hive-site.xml \
 -v $PWD/hadoop/hive-env.sh:/apache-hive-3.1.1-bin/conf/hive-env.sh \
--v $PWD/hadoop/entrypoint.sh-spark:/entrypoint.sh \
--d spark:2.4.0
-
+-v $PWD/hadoop/oozie-site.xml:/oozie-5.0.0/conf/oozie-site.xml \
+-v $PWD/hadoop/entrypoint.sh-oozie:/entrypoint.sh \
+-d spark-oozie:5.0.0

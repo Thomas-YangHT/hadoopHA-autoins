@@ -19,11 +19,11 @@ server {
 	}
 
         #当请求网站下php文件的时候，反向代理到php-fpm
-      #  location ~ \.php$ {
-      #     include fastcgi_params; #加载nginx的fastcgi模块
-      #     fastcgi_intercept_errors on;
-      #    # fastcgi_pass   127.0.0.1:9000; #nginx fastcgi进程监听的IP地址和端口
-      #     fastcgi_pass   unix:/var/run/php5-fpm.sock; #nginx fastcgi进程监听的IP地址和端口
-      #  }
+     #   location ~ \.php$ {
+     #      include fastcgi_params; #加载nginx的fastcgi模块
+     #      fastcgi_intercept_errors on;
+          # fastcgi_pass   127.0.0.1:9000; #nginx fastcgi进程监听的IP地址和端口
+     #      fastcgi_pass   unix:/var/run/php5-fpm.sock; #nginx fastcgi进程监听的IP地址和端口
+     #   }
 
 }

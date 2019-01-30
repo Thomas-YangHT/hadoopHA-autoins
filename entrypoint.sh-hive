@@ -9,12 +9,9 @@ export YARN_HOME=$HADOOP_HOME
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_INSTALL=$HADOOP_HOME
+export SPARK_HOME=/spark-2.4.0
+export HIVE_HOME=/apache-hive-3.1.1-bin
 
-$HADOOP_HOME/bin/yarn --daemon  stop   resourcemanager
-$HADOOP_HOME/bin/yarn --daemon  stop   proxyserver 
-$HADOOP_HOME/bin/mapred --daemon  stop  historyserver 
-$HADOOP_HOME/bin/yarn --daemon  start  resourcemanager
-$HADOOP_HOME/bin/yarn --daemon  start  proxyserver 
-$HADOOP_HOME/bin/mapred --daemon  start historyserver 
-
+$HIVE_HOME/bin/hive --service metastore &
+$HIVE_HOME/bin/hiveserver2 &
 tail -f /dev/stdout

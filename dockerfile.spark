@@ -19,6 +19,8 @@ ADD apache-hive-3.1.1-bin.tar.gz /
 ADD scala-2.12.8.tgz /
 ADD sources.list /etc/apt
 ADD mysql-connector-java-5.1.47.jar /apache-hive-3.1.1-bin/lib
+ADD livy-0.5.0.tgz /
 RUN apt update; \
     apt install -y python3 python3-pip; \
     pip3 install  notebook
+ADD solr-7.6.0.tgz /

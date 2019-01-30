@@ -1,9 +1,5 @@
 hadoop-base-3.1.1.tgz
 hbase-base-2.1.tgz
 spark-2.4.0.tgz
-spark-oozie-5.0.0.tgz
-hue.tgz
 zookeeper.tgz
-myweb.tgz
-mariadb.tgz
 scope.tgz

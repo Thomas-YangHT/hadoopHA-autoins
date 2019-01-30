@@ -31,6 +31,10 @@ p|pconfig)
   echo "start prepare config..."
   func_config_prepare
 ;;
+p1|pmysql)
+  echo "start prepare mysql..."
+  func_mysql_prepare
+;;
 reset)
   echo "start reset..."
   func_reset
@@ -90,6 +94,26 @@ hue)
 mysql)
   echo "start mysql..."
   func_mysql
+;;
+hive)
+  echo "start hive..."
+  func_hive
+;;
+hiveinit)
+  echo "start hiveinit..."
+  func_hiveinit
+;;
+oozie)
+  echo "start oozie..."
+  func_oozie
+;;
+oozieinit)
+  echo "start oozieinit..."
+  func_oozieinit
+;;
+myweb)
+  echo "start myweb..."
+  func_myweb
 ;;
 nginx)
   echo "start nginx..."
@@ -161,12 +185,15 @@ default|all)
   func_status
   func_hmaster
   func_hregion
+  func_mysql
   func_spark
   func_sparkslave
+  func_hive
+  func_oozie
   func_hue
-  func_genindex
   func_scope
-  func_nginx
+  func_genindex
+  func_myweb
   func_finish
 ;;
 help|*)
@@ -182,6 +209,16 @@ help|*)
         startnn2       :start NN/ZKFC/RM on nn2\n\
         datanode       :start datanode on DNX\n\
         nodemanager    :start nodemanager on all nodes\n\
+        hmaster        :HBASE master\n\
+        hregion        :HBASE region\n\
+        spark          :start spark master\n\ 
+        sparkslave     :start spark slaves\n\
+        oozie          :oozie for schedule jobs\n\
+        hue            :HUE manager page\n\
+        scope          :weavescope monitor\n\
+        myweb          :index for all services\n\
+        genindex       :generate svc-hadoop.html \n\
+        finish         :print finish page\n\
         status         :get status of NameNode&ResourceManager(NN&RM) & zookeeper\n\
         timezone8      :set timezone CST-8\n\
         route          :add route temporally\n\

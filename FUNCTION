@@ -9,12 +9,18 @@ func_zookeeper(){
 
 #images prepare
 func_images_prepare(){
-	fab -H $master,$node -f fab_inst.py prepare_images -u $REMOTE_USER -P --colorize-errors
+	fab -H $master -f fab_inst.py prepare_images:IMAGES -u $REMOTE_USER -P --colorize-errors
+	fab -H $node -f fab_inst.py prepare_images:IMAGES.nodes -u $REMOTE_USER -P --colorize-errors
 }
 
 #config prepare
 func_config_prepare(){
 	fab -H $master,$node -f fab_inst.py prepare -u $REMOTE_USER -P --colorize-errors
+}
+
+#mysql prepare
+func_mysql_prepare(){
+	fab -H $master -f fab_inst.py prepare_mysql -u $REMOTE_USER -P --colorize-errors
 }
 
 #reset
@@ -87,6 +93,31 @@ func_mysql(){
         fab -H $NN2_IP -f fab_inst.py mysql -u $REMOTE_USER -P --colorize-errors
 }
 
+#hiveinit
+func_hiveinit(){
+        fab -H $NN2_IP -f fab_inst.py hiveinit -u $REMOTE_USER -P --colorize-errors
+}
+
+#hive
+func_hive(){
+        fab -H $NN2_IP -f fab_inst.py hive -u $REMOTE_USER -P --colorize-errors
+}
+
+#oozie
+func_oozie(){
+        fab -H $NN2_IP -f fab_inst.py oozie -u $REMOTE_USER -P --colorize-errors
+}
+
+#oozieinit
+func_oozieinit(){
+        fab -H $NN1_IP -f fab_inst.py oozieinit -u $REMOTE_USER -P --colorize-errors
+}
+
+#myweb
+func_myweb(){
+        fab -H $NN1_IP -f fab_inst.py myweb -u $REMOTE_USER -P --colorize-errors
+}
+
 #nginx
 func_nginx(){
         fab -H $NN1_IP -f fab_inst.py nginx -u $REMOTE_USER -P --colorize-errors
@@ -109,17 +140,20 @@ func_status(){
 func_genindex(){
         echo -e "<h1>Services index of Hadoop 3.1.1</h1> 
 <ul>
-<li><a href=\"http://$NN1_IP:50070\">HDFS web nn1:  http://$NN1_IP:50070</a></li></br>
-<li><a href=\"http://$NN2_IP:50070\">HDFS web nn2:  http://$NN2_IP:50070</a></li></br>
-<li><a href=\"http://$NN1_IP:8088/cluster\">YARN web nn1:  http://$NN1_IP:8088/cluster</a></li></br>
-<li><a href=\"http://$NN2_IP:8088/cluster\">YARN web nn2:  http://$NN2_IP:8088/cluster</a></li></br>
-<li><a href=\"http://$NN1_IP:16010\">HBASE-master web UI:  http://$NN1_IP:16010</a></li></br>
-<li><a href=\"http://$DN1_IP:16030\">HBASE region1:  http://$DN1_IP:16030</a></li></br>
-<li><a href=\"http://$NN2_IP:8080\">SPARK-master web UI:  http://$NN2_IP:8080</a></li></br>
-<li><a href=\"http://$DN1_IP:8081\">SPARK-slave1:  http://$DN1_IP:8081</a></li></br>
-<li><a href=\"http://$NN2_IP:8888\">HUE web:  http://$NN2_IP:8888</a></li></br>
-<li><a href=\"http://$NN2_IP:8889?token=`more finish |grep token|grep -Po "token=\K.*"|awk '{print $1}'`\">Jupyter-Notebook:  http://$NN2_IP:8889?token=`more finish |grep token|grep -Po "token=\K.*"|awk '{print $1}'`</a></li></br>
-<li><a href=\"http://$NN1_IP:4050\">Weavescope:  http://$NN1_IP:4050 default: admin/admin</a></li></br>
+<li><a href=\"http://$NN1_IP/portstatus.php\" target='_black'>Services Port Status</a></li></br>
+<li><a href=\"http://$NN1_IP:50070\" target='_black'>HDFS web nn1:  http://$NN1_IP:50070</a></li></br>
+<li><a href=\"http://$NN2_IP:50070\" target='_black'>HDFS web nn2:  http://$NN2_IP:50070</a></li></br>
+<li><a href=\"http://$NN1_IP:8088/cluster\" target='_black'>YARN web nn1:  http://$NN1_IP:8088/cluster</a></li></br>
+<li><a href=\"http://$NN2_IP:8088/cluster\" target='_black'>YARN web nn2:  http://$NN2_IP:8088/cluster</a></li></br>
+<li><a href=\"http://$NN1_IP:16010\" target='_black'>HBASE-master web UI:  http://$NN1_IP:16010</a></li></br>
+<li><a href=\"http://$DN1_IP:16030\" target='_black'>HBASE region1:  http://$DN1_IP:16030</a></li></br>
+<li><a href=\"http://$NN2_IP:8080\" target='_black'>SPARK-master web UI:  http://$NN2_IP:8080</a></li></br>
+<li><a href=\"http://$DN1_IP:8081\" target='_black'>SPARK-slave1:  http://$DN1_IP:8081</a></li></br>
+<li><a href=\"http://$NN2_IP:8983\" target='_black'>Solr web:  http://$NN2_IP:8983</a></li></br>
+<li><a href=\"http://$NN2_IP:11000\" target='_black'>Oozie web:  http://$NN2_IP:11000</a></li></br>
+<li><a href=\"http://$NN2_IP:8888\" target='_black'>HUE web:  http://$NN2_IP:8888</a></li></br>
+<li><a href=\"http://$NN2_IP:8889?token=`more finish |grep token|grep -Po "token=\K.*"|awk '{print $1}'`\" target='_black'>Jupyter-Notebook:  http://$NN2_IP:8889?token=`more finish |grep token|grep -Po "token=\K.*"|awk '{print $1}'`</a></li></br>
+<li><a href=\"http://$NN1_IP:4050\" target='_black'>Weavescope:  http://$NN1_IP:4050 default: admin/admin</a></li></br>
 <li>NFS3 Gateway1:  mount -t nfs -o vers=3,proto=tcp,nolock,noacl $NN1_IP:/ /mnt</li></br>
 <li>NFS3 Gateway2:  mount -t nfs -o vers=3,proto=tcp,nolock,noacl $NN2_IP:/ /mnt</li></br>
 </ul>" \
@@ -128,13 +162,14 @@ func_genindex(){
 
 #finish 
 func_finish(){
+  sh updateMonIP.sh
   fab -H $NN1_IP -f fab_inst.py status     -u $REMOTE_USER --colorize-errors|tee finish 
   fab -H $NN2_IP -f fab_inst.py status2    -u $REMOTE_USER --colorize-errors|tee -a finish
   fab -H $node   -f fab_inst.py zstatus    -u $REMOTE_USER --colorize-errors|tee -a finish
   fab -H $NN2_IP -f fab_inst.py jupyterweb -u $REMOTE_USER --colorize-errors|tee -a finish
   str="\n"`cat README.md |tail -6|head -n -1|sed 's/#/ /g'`"\n\n"
   str+=`cat finish|awk -F'out:' '{print $2}'|grep -vP "WARNING|^$"`
-  str+="\n Please browse http://$NN1_IP/index.html to check hadoop services, enjoy it!"
+  str+="\n Please browse http://$NN1_IP to check hadoop services, enjoy it!"
   echo -e "\033[45;42m $str \033[0m"
 }
 

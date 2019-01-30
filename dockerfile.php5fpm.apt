@@ -1,0 +1,6 @@
+FROM  debian:jessie
+ADD sources.list /etc/apt/
+RUN apt update;apt -y install curl wget git net-tools php5 php5-cli php5-common php5-mysqlnd nginx php5-fpm mariadb-client nmap gawk
+#RUN apt -y install python python-pip python-mysqldb wget
+
+ENTRYPOINT /usr/bin/docker-entrypoint.sh

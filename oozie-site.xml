@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+       Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<configuration>
+
+    <!--
+                 Refer to the oozie-default.xml file for the complete list of
+        Oozie configuration properties and their default values.
+    -->
+
+    <!-- Proxyuser Configuration -->
+
+    
+
+    <property>
+        <name>oozie.service.ProxyUserService.proxyuser.root.hosts</name>
+        <value>*</value>
+        <description>
+            List of hosts the '#USER#' user is allowed to perform 'doAs'
+            operations.
+
+            The '#USER#' must be replaced with the username o the user who is
+            allowed to perform 'doAs' operations.
+
+            The value can be the '*' wildcard or a list of hostnames.
+
+            For multiple users copy this property and replace the user name
+            in the property name.
+        </description>
+    </property>
+
+    <property>
+        <name>oozie.service.ProxyUserService.proxyuser.root.groups</name>
+        <value>*</value>
+        <description>
+            List of groups the '#USER#' user is allowed to impersonate users
+            from to perform 'doAs' operations.
+
+            The '#USER#' must be replaced with the username o the user who is
+            allowed to perform 'doAs' operations.
+
+            The value can be the '*' wildcard or a list of groups.
+
+            For multiple users copy this property and replace the user name
+            in the property name.
+        </description>
+    </property>
+
+    
+      <property>
+           <name>oozie.service.JPAService.create.db.schema</name>
+           <value>true</value>
+      </property>
+      <property>
+          <name>oozie.service.JPAService.jdbc.driver</name>
+          <value>com.mysql.jdbc.Driver</value>
+      </property>
+      <property>
+          <name>oozie.service.JPAService.jdbc.url</name>
+          <value>jdbc:mysql://nn2:3306/oozie?createDatabaseIfNotExist=true</value>
+      </property>
+       
+      <property>
+          <name>oozie.service.JPAService.jdbc.username</name>
+          <value>yanght</value>
+      </property>
+       
+      <property>
+          <name>oozie.service.JPAService.jdbc.password</name>
+          <value>yanght</value>
+      </property>
+      <property>
+          <name>oozie.service.HadoopAccessorService.hadoop.configurations</name>
+          <value>*=/etc/hadoop</value>
+      </property>
+
+</configuration>
+

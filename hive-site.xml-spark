@@ -1,0 +1,78 @@
+<configuration> 
+                <property>
+                        <name>javax.jdo.option.ConnectionURL</name>
+                        <value>jdbc:mysql://nn2:3306/hive_metadata?createDatabaseIfNotExist=true</value>  
+                </property>
+                <property>
+                        <name>javax.jdo.option.ConnectionDriverName</name>                       
+                        <value>com.mysql.jdbc.Driver</value>
+                </property>
+                <property>
+                       <name>javax.jdo.option.ConnectionUserName</name>
+                       <value>yanght</value>
+                </property>
+                <property>
+                      <name>javax.jdo.option.ConnectionPassword</name>                     
+                      <value>yanght</value>
+                </property>
+		<property> 
+                      <name>hive.metastore.warehouse.dir</name> 
+                      <value>/user/hive/warehouse</value> 
+                      <description>location of default database for the warehouse</description> 
+                </property> 
+	       <property>
+                       <name>hive.metastore.schema.verification</name>
+                       <value>false</value>
+               </property>
+               <property>
+                        <name>datanucleus.schema.autoCreateAll</name>
+                        <value>true</value>
+               </property>
+<!--
+                <!-- hive执行引擎->
+                <property>
+                          <name>hive.execution.engine</name>
+                          <value>spark</value>
+                </property>
+
+              <!-- spark家目录-->
+             <property>
+                    <name>spark.home</name>
+                    <value>/soft/spark-hive</value>
+              </property>
+             <!--也可以在spark default中设置->        
+              <property>
+                    <name>spark.master</name>
+                    <value>spark://nn2:7077</value>
+              <!--（hive官方的指导建议是yarn模式，yarn模式集群此处的value值应该为yarn）-> 
+              </property>
+              <property>
+                     <name>spark.eventLog.enabled</name>
+                     <value>true</value>
+             </property>
+                 <property>
+                   <name>spark.eventLog.dir</name>
+                   <value>hdfs://nn1/user/spark/spark-log</value>
+                   <description>必须要有这个目录</description>
+                </property>
+                <property>
+                 <name>spark.executor.memory</name>
+                 <value>1g</value>
+                </property>
+                <property>
+                   <name>spark.driver.memory</name>
+                    <value>1g</value>
+                </property>
+                <property>
+                     <name>spark.serializer</name>
+                     <value>org.apache.spark.serializer.KryoSerializer</value>
+                </property>
+
+                <!--把spark jars下的jar包上传到hdfs上，yarn模式下减少集群间的分发->  
+                 <property>
+                       <name>spark.yarn.jars</name>
+                       <value>hdfs://nn1/spark-jars/*</value>
+                </property>
+-->
+</configuration>
+

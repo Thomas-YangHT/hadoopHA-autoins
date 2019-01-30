@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#cp /usr/share/myweb/cronroot /var/spool/cron/crontabs/root
+cp /usr/share/myweb/sudoers /etc/sudoers
+cp /usr/share/myweb/nginx.conf /etc/nginx/
+
+##for php-fpm
+cp /usr/share/myweb/nginx_download.conf /etc/nginx/conf.d/
+cp /usr/share/myweb/php-fpm.conf /etc/php5/fpm/
+php5-fpm
+
+##for spawn-fcgi
+#cp /usr/share/myweb/php.cf /etc/nginx/conf.d/
+#cp /usr/share/myweb/http.conf /etc/nginx/conf.d/
+#nohup /usr/bin/spawn-fcgi -a 0.0.0.0 -p 9000 -u nginx -g nginx -f /usr/bin/php-cgi -C 10
+
+
+nginx
+exec $@
+tail -f /dev/stdout
+

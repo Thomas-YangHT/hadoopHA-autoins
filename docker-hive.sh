@@ -1,7 +1,7 @@
 source ./hadoop/CONFIG
 SPARK_HOME=/spark-2.4.0
 
-docker run --name spark \
+docker run --name hive \
 --restart always \
 --net host \
 -v $PWD/hadoop/spark-env.sh:$SPARK_HOME/conf/spark-env.sh \
@@ -14,6 +14,6 @@ docker run --name spark \
 -v $PWD/hadoop/workers:/etc/hadoop/workers \
 -v $PWD/hadoop/hive-site.xml:/apache-hive-3.1.1-bin/conf/hive-site.xml \
 -v $PWD/hadoop/hive-env.sh:/apache-hive-3.1.1-bin/conf/hive-env.sh \
--v $PWD/hadoop/entrypoint.sh-spark:/entrypoint.sh \
+-v $PWD/hadoop/entrypoint.sh-hive:/entrypoint.sh \
 -d spark:2.4.0
 

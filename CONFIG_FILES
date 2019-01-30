@@ -18,7 +18,9 @@ hdfs-site.xml
 hive-site.xml
 mapred-site.xml
 hue.ini
-mysql
+hive-env.sh
+oozie-site.xml
+myweb
 
 #docker scripts
 docker-datanode.sh
@@ -38,6 +40,10 @@ docker-sparkslave.sh
 docker-standby.sh
 docker-zookeeper.sh
 docker-hue.sh
+docker-hive.sh
+docker-oozie.sh
+docker-myweb.sh
+entrypoint.sh-myweb
 entrypoint.sh
 entrypoint.sh-bootstrapstandby
 entrypoint.sh-datanode
@@ -54,10 +60,13 @@ entrypoint.sh-resourcemanager
 entrypoint.sh-secondarynamenode
 entrypoint.sh-spark
 entrypoint.sh-sparkslave
+entrypoint.sh-hive
+entrypoint.sh-oozie
 start-dfs.sh
 start-yarn.sh
 stop-dfs.sh
 stop-yarn.sh
+oozie-init.sh
 
 #scope
 scope

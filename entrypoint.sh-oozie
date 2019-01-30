@@ -1,0 +1,22 @@
+#!/bin/bash
+#exec $@
+export HADOOP_HOME=/opt/hadoop-3.1.1
+export HADOOP_PREFIX=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_INSTALL=$HADOOP_HOME
+export SPARK_HOME=/spark-2.4.0
+export PATH=/spark-2.4.0/bin:/spark-2.4.0/sbin:/opt/hadoop-3.1.1/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/scala-2.12.8/bin:/apache-hive-3.1.1-bin/bin:/apache-hive-3.1.1-bin/sbin
+export HIVE_HOME=/apache-hive-3.1.1-bin
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+export HADOOP_CONF_DIR=/etc/hadoop
+export HADOOP_URL=https://www.apache.org/dist/hadoop/common/hadoop-3.1.1/hadoop-3.1.1.tar.gz
+export SCALA_HOME=/scala-2.12.8
+
+
+/oozie-5.0.0/bin/oozied.sh start
+tail -f /dev/stdout
