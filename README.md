@@ -49,6 +49,8 @@ Myweb:  自编，服务索引与服务状态监控
 | Myweb                   | Hue&Mysql&Jupyter            |             |             |             |
 | WeaveScope              | WeaveScope                   | WeaveScope  | WeaveScope  | WeaveScope  |
 
+
+#### 监控服务状态的图显示了各服务所在的IP
 ![](pics/2.png)
 
 
