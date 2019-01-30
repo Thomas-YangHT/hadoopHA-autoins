@@ -1,6 +1,6 @@
 # Auto Install Hadoop Cluster On Docker
 
-##### 前言：
+## 前言：
 
 一个Hadoop自动安装脚本，以5台KVM虚拟机和docker为基础，来自动步署Hadoop集群（HDFS、YARN、HBASE、HIVE、SPARK、HUE、Jupyter-notebook、Scope等）
 
@@ -34,7 +34,7 @@ Myweb:  自编，服务索引与服务状态监控
 
 
 
-##### 架构与服务分配
+## 架构与服务分配
 
 | nn1                     | nn2                          | dn1         | dn2         | dn3         |
 | ----------------------- | ---------------------------- | ----------- | ----------- | ----------- |
@@ -53,7 +53,7 @@ Myweb:  自编，服务索引与服务状态监控
 
 
 
-##### 准备
+## 准备
 
 - 克隆5台虚拟机，详见前篇**[基础架构十四：来试试把Centos7改造成Coreos]**，nn2需要调整到8G内存
 - 下载所需docker镜相
@@ -62,7 +62,7 @@ Myweb:  自编，服务索引与服务状态监控
 
 
 
-##### 配置
+## Step 1 配置
 
 `cd hadoopHa-autoins; vim CONFIG` #修改5台机器的IP
 
@@ -70,7 +70,7 @@ Myweb:  自编，服务索引与服务状态监控
 
 
 
-##### 安装
+## Step 2 安装
 
 `sh install all`  # 大约10分钟后完成安装
 
@@ -79,9 +79,9 @@ Myweb:  自编，服务索引与服务状态监控
 ![](pics/3.png)
 
 
-##### 验证
+## Step 3 验证
 
-打开安装完提示的链接：http://<your nn1 IP>
+打开安装完提示的链接：`http://<your nn1 IP>`
 
 ![](pics/1.png)
 ##### 服务端口状态
@@ -126,6 +126,8 @@ WeaveScope
 
 ![](pics/12.png)
 
+NFS
+`mount -t nfs -o vers=3,proto=tcp,nolock,noacl <your nn1 ip>:/ /mnt`
 
 ## [LinuxMan]：Linux 命令搜索与资料书籍
 
